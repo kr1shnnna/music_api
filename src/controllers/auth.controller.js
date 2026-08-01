@@ -1,5 +1,7 @@
 const userModel = require('../models/user.model');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
 
 
 
@@ -25,10 +27,13 @@ return res.status(409).json(
 )
     }
 
+    const hashPassword=await bcrypt.hash(password,10); // to hash the password before saving it to the database 
+
+
     const newUser=await userModel.create({
         username,
         email,
-        password,
+        password:hashPassword, // to save the password in hashed format 
         role
     })
 
@@ -54,4 +59,7 @@ return res.status(409).json(
 
 
 }
+
+module.exports={registerUser}
+
 
