@@ -108,6 +108,13 @@ res.status(200).json({
 
 }
 
-module.exports={registerUser,loginUser}
+
+async function logoutUser(req,res){
+    res.clearCookie('token'); // to clear the cookie from the client side
+    res.status(200).json({
+        message:'User logged out successfully'
+    })
+}
+module.exports={registerUser,loginUser,logoutUser}
 
 
